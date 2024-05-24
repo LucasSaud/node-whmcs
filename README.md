@@ -1,53 +1,53 @@
-WHMCS Node Module
+Módulo WHMCS para Node
 =========
 
-WHMCS' API Node client.
+Cliente API Node para WHMCS.
 
-## Pre-requisites
+## Pré-requisitos
 
-Install [Node.js](https://nodejs.org/en/) version 12.0.0 or higher.
+Instale o [Node.js](https://nodejs.org/en/) versão 18.0.0 ou superior.
 
-## Installation
+## Instalação
+
 
 ```
 npm install whmcs
 ```
 
-## Usage
+## Uso
 
-First you need to instantiate it.
+Primeiro, você precisa instanciá-lo.
 
-You can instantiate with api credentials:
+Você pode instanciar com credenciais da API:
 
 ```javascript
 const config = {
-  apiIdentifier: '<your_api_identifier>',
-  apiSecret: '<your_api_secret>',
-  accesskey: '<your_access_key>', //optional. use it to bypass IP restrictions
+  apiIdentifier: '<seu_identificador_api>',
+  apiSecret: '<seu_segredo_api>',
+  accesskey: '<sua_chave_de_acesso>', //opcional. use isso para ignorar restrições de IP
   serverUrl: 'http://127.0.0.1',
-  userAgent: '<your_user_agent>'
+  userAgent: '<seu_agente_de_usuario>'
 };
 
 const wclient = new WHMCS(config);
-```
 
-Or you can instantiate with administrator username and MD5 hashed password:
+Ou você pode instanciar com nome de usuário do administrador e senha MD5 hash:
 
 ```javascript
 const config = {
-  username: process.env.WHMCS_USER || '<your_admin_username>',
-  password: process.env.WHMCS_PASSWORD || '<your_md5_hashed_password>',
-  accesskey: '<your_access_key>', //optional. use it to bypass IP restrictions
+  username: process.env.WHMCS_USER || '<seu_nome_de_usuário_admin>',
+  password: process.env.WHMCS_PASSWORD || '<sua_senha_hash_md5>',
+  accesskey: '<sua_chave_de_acesso>', //opcional. use isso para ignorar restrições de IP
   serverUrl: 'http://127.0.0.1',
-  userAgent: '<your_user_agent>'
+  userAgent: '<seu_agente_de_usuario>'
 };
 
 const whmcs = new WHMCS(config);
 ```
 
-With the created WHMCS client, you should get the category/module you want (see [available modules](#Implemented-functions)) and call the method you need.
+Com o cliente WHMCS criado, você deve obter a categoria/módulo desejado (veja os módulos disponíveis) e chamar o método necessário.
 
-For example, you can fetch 10 users like this:
+Por exemplo, você pode buscar 10 usuários assim:
 
 ```javascript
 const parameters = {
@@ -64,7 +64,7 @@ whmcs.users.getUsers(parameters)
   });
 ```
 
-If you want/need to, you can use callbacks instead:
+Se desejar/necessitar, você pode usar callbacks em vez disso:
 
 ```javascript
 const parameters = {
@@ -77,16 +77,16 @@ whmcs.users.getUsers(parameters, function (err, details) {
 });
 ```
 
-## Module architecture
+## Arquitetura do Módulo
 
-This node-js module follows [WHMCS' API Index](https://developers.whmcs.com/api/api-index/) structure, which have functions organized by categories. Every category is represented here by a module Object, and each module has public methods representing WHMCS' functions.
+Este módulo node-js segue a estrutura do Índice da API WHMCS, que possui funções organizadas por categorias. Cada categoria é representada aqui por um objeto de módulo, e cada módulo possui métodos públicos representando as funções da WHMCS.
 <br/>
-When WHMCS' function requires parameters, they must be grouped in a JSON Object and then can be set as the first argument of the method. If no parameters are required, this argument must not be set. The "callback" argument is optional, and when not provided the method returns a Promise. This pattern is shared all across the modules public methods.
+Quando a função da WHMCS requer parâmetros, eles devem ser agrupados em um objeto JSON e então podem ser definidos como o primeiro argumento do método. Se nenhum parâmetro for necessário, este argumento não deve ser definido. O argumento "callback" é opcional, e quando não fornecido, o método retorna uma Promise. Este padrão é compartilhado em todos os métodos públicos dos módulos.
 <br/>
 
-## Implemented functions
+## Funções implementadas
 
-The [WHMCS' API Index](https://developers.whmcs.com/api/api-index/) can be updated anytime, so you must check below which functions are implemented (expand to show the function list).
+O Índice da API WHMCS pode ser atualizado a qualquer momento, então você deve verificar abaixo quais funções estão implementadas (expandir para mostrar a lista de funções).
 
 <details>
   <summary>Addons</summary>
@@ -332,36 +332,6 @@ The [WHMCS' API Index](https://developers.whmcs.com/api/api-index/) can be updat
 </details>
 
 
-## Custom API functions
-
-It is possible to call custom functions using the method <i>callApi</i>:
-
-```javascript
-const parameters = {
-  paramx: 'x',
-  paramy: 'y'
-};
-
-whmcs.callApi('CustomFunctionName', parameters)
-  .then(details => {
-    ...
-  })
-  .catch(err => {
-    ...
-  });
-```
-
-## Tests
+## Testes
 
 Tests are implemented using `mocha` and `chai`. Run them with `npm test`.
-
-
-## License
-
-Pedro Dias - [@pedromdias](https://twitter.com/pedromdias)
-
-Licensed under the Apache license, version 2.0 (the "license"); You may not use this file except in compliance with the license. You may obtain a copy of the license at:
-
-http://www.apache.org/licenses/LICENSE-2.0.html
-
-Unless required by applicable law or agreed to in writing, software distributed under the license is distributed on an "as is" basis, without warranties or conditions of any kind, either express or implied. See the license for the specific language governing permissions and limitations under the license.
