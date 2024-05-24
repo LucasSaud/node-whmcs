@@ -334,4 +334,4 @@ O Índice da API WHMCS pode ser atualizado a qualquer momento, então você deve
 
 ## Testes
 
-Tests are implemented using `mocha` and `chai`. Run them with `npm test`.
+Testes foram implementados usando `mocha` e `chai`. Execute-os com `npm test`.
